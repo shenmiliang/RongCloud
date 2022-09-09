@@ -1,0 +1,23 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        jcenter()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+    }
+}
+rootProject.name = "RongClound"
+include ':app'
+include ':RongCloundSDK:callkit'
+include ':RongCloundSDK:calllib'
+include ':RongCloundSDK:rtclib'
+include ':RongCloundSDK:imkit'
+include ':RongCloundSDK:imlib'
