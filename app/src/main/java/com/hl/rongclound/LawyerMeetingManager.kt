@@ -79,10 +79,10 @@ class LawyerMeetingManager {
                 inputStream.setVideoFrameListener(object :
                     IRCRTCVideoInputFrameListener() {
                     override fun onFrame(videoFrame: RCRTCRemoteVideoFrame) {
-                        var data =videoFrame.buffer as RCRTCRemoteVideoFrame.RTCBufferI420
+                       /* var data =videoFrame.buffer as RCRTCRemoteVideoFrame.RTCBufferI420
 
                         println("融云->远端流>"+videoFrame.frameType
-                                +"    >"+data.dataY+"   >"+data.width+"   >"+data.height)
+                                +"    >"+data.dataY+"   >"+data.width+"   >"+data.height)*/
                     }
                 })
                 inputStream.streamType = RCRTCStreamType.NORMAL

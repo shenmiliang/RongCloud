@@ -25,6 +25,7 @@ class MainActivity : BaseActivity() {
     private var mRcrtcRoom: RCRTCRoom? = null
     private var mLocalVideo: SurfaceView? = null //本地视图
     private var remoteVideo: SurfaceView? = null //远端视图
+    private var bgImage: ByteArray? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -76,8 +77,17 @@ class MainActivity : BaseActivity() {
             IRCRTCVideoOutputFrameListener() {
             override fun processVideoFrame(rtcVideoFrame: RCRTCVideoFrame): RCRTCVideoFrame {
                 //使用数据进行美颜/录像等处理后，需要把数据再返回给SDK做发送
-                println("融云->本地流>"+rtcVideoFrame.data)
+
+                println("aaaaaaad1>" + rtcVideoFrame.data.size + "    w>" + rtcVideoFrame.width + "    >" + rtcVideoFrame.height + "    >")
+
+                var res = bgImage?.let {
+                        matting(rtcVideoFrame.width, rtcVideoFrame.height, rtcVideoFrame.data)
+                }
+
+                rtcVideoFrame.data = res
                 return rtcVideoFrame
+
+
             }
         })
     }
@@ -254,6 +264,9 @@ class MainActivity : BaseActivity() {
 
 
     companion object {
+        init {
+            System.loadLibrary("face_ai")
+        }
         //userID --  hl_test1  -- token -- NP4oX/6UXq2Kie7xV+atMw8IeW4HwNhJS4FHHk3OCEmU/au3UcNPiPTXGDAqJxDEV9HVbg==
         //userID --  hl_test2  -- token -- NP4oX12RxJ0QtbMTzHtnOvJf+YvSlwLsWsjICU3OCEmU/au36CZQbeVRb1AqJxDEV9HVbg==
         var b = true //true hl_test1  false hl_test2
@@ -276,5 +289,7 @@ class MainActivity : BaseActivity() {
         RongIMClient.getInstance().logout()
         exitRCRoom()
     }
+
+    external fun matting(width: Int, height: Int, src: ByteArray): ByteArray
 
 }
